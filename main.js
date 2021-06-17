@@ -13,15 +13,13 @@ const totalAmountOfCredit = document.getElementById('amount-of-credit'),
     totalMonthlyPayment = document.getElementById('monthly-payment'),
     totalRecommendedIncome = document.getElementById('recommended-income')
 
-// All number inputs
-const inputsNumber = document.querySelectorAll('.input-number');
-
-// All range inputs
-const inputsRange = document.querySelectorAll('.input-range');
-
 // All buttons
 const bankBtns = document.querySelectorAll('.bank');
 
+// All number inputs
+const inputsNumber = document.querySelectorAll('.input-number');
+// All range inputs
+const inputsRange = document.querySelectorAll('.input-range');
 // All inputs 
 let inputs = []
 const inputsN = Array.from(inputsNumber);
@@ -30,6 +28,7 @@ for (let i = 0; i < inputsN.length && i < inputsR.length; i++) {
     inputs.push([inputsN[i], inputsR[i]]);
 };
 
+
 // Set range value to number value
 const assignRangeValue = () => {
     for (let i = 0; i < inputs.length; i++) {
@@ -37,8 +36,8 @@ const assignRangeValue = () => {
     }
 }
 
-// Set range number to range value
-const assignNumberValue = (inputNumber) => {
+// Set number value to range value
+const assignNumberValue = () => {
     for (let i = 0; i < inputs.length; i++) {
         inputs[i][1].value = inputs[i][0].value || inputs[i][1].min;
     }
@@ -62,7 +61,7 @@ const banks = [{
         name: 'tinkoff',
         percents: 9.2,
     },
-]
+];
 
 let currentPercent = banks[0].percents;
 
@@ -78,7 +77,7 @@ for (const bank of bankBtns) {
 
 const takeActiveBank = (currentActive) => {
     const dataNameValue = currentActive.dataset.name;
-    const currentBank = banks.find(bank => bank.name === dataNameValue)
+    const currentBank = banks.find(bank => bank.name === dataNameValue);
     currentPercent = currentBank.percents;
     calculation(totalCost.value, anInitialFee.value, creditTerm.value);
 };
@@ -117,20 +116,20 @@ const calculation = (totalCost = 0, anInitialFee = 100000, creditTerm = 1) => {
     let monthlyPayment;
     let lounAmount = totalCost - anInitialFee;
     let interestRate = currentPercent;
-    let yearsNum = creditTerm
+    let yearsNum = creditTerm;
     let monthsNum = 12 * yearsNum;
 
     monthlyPayment = (lounAmount + (((lounAmount / 100) * interestRate) / 12) * monthsNum) / monthsNum;
     const monthlyPaymentArounded = Math.round(monthlyPayment);
     if (monthlyPaymentArounded <= 0) {
         totalAmountOfCredit.innerHTML = `0₽`;
-        totalMonthlyPayment.innerHTML = `0₽`
-        totalRecommendedIncome.innerHTML = `0₽`
+        totalMonthlyPayment.innerHTML = `0₽`;
+        totalRecommendedIncome.innerHTML = `0₽`;
         return false;
     } else {
         totalAmountOfCredit.innerHTML = `${splitToTriads(lounAmount)}₽`;
-        totalMonthlyPayment.innerHTML = `${splitToTriads(monthlyPaymentArounded)}₽`
-        totalRecommendedIncome.innerHTML = `${splitToTriads(Math.round(monthlyPaymentArounded + (monthlyPaymentArounded / 100) * 35))}₽`
+        totalMonthlyPayment.innerHTML = `${splitToTriads(monthlyPaymentArounded)}₽`;
+        totalRecommendedIncome.innerHTML = `${splitToTriads(Math.round(monthlyPaymentArounded + (monthlyPaymentArounded / 100) * 35))}₽`;
     }
 }
 
