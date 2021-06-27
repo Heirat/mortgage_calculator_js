@@ -27,6 +27,6 @@ I have reproduced the code and then I found several moments that I can improve.
     }
   }
   ```
-## [Demo page](https://heirat.github.io/mortgage_calculator_js/)
+### [Demo page](https://heirat.github.io/mortgage_calculator_js/)
 
 	
